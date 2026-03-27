@@ -30,7 +30,7 @@
                                                                 
 ## DESCRIPCION GENERAL
 
-El proyecto “Datafile solution” consiste en el desarrollo de un sistema en Python para la gestión de préstamos de objetos, diseñado para ayudar a Michael Jackson Gamboa a llevar un control organizado de los artículos que presta a sus amigos.
+El proyecto “Datafile solution” consiste en el desarrollo de un sistema para la gestión de préstamos de objetos, diseñado para ayudar a Michael Jackson Gamboa a llevar un control organizado de los artículos que presta.
 
 El software propuesto es un sistema de gestión de préstamos desarrollado en Python, diseñado para controlar de manera estructurada la información relacionada con usuarios, objetos y movimientos de préstamo y devolución. Su funcionamiento se realizará a través de una interfaz de consola amigable, que permita una interacción simple, ordenada y eficiente con el sistema.
 Esta solución está pensada para contextos en los que sea necesario administrar recursos prestables de forma organizada, sustituyendo registros manuales por un entorno digital con mayor claridad operativa. El programa integrará funciones de registro, consulta, actualización y control de la información, permitiendo centralizar los datos dentro de una misma herramienta.
