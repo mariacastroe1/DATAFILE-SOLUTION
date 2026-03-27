@@ -6,10 +6,13 @@
 - Habilidades: 
 - Fortalezas:
   
+  
 **- LINA MARCELA DUQUE GIRALDO:** Tengo 28 años, estoy en el programa de ingeniería industrial virtual (sede Medellín) y trabajo en la alcaldía de Rionegro por carrera administrativa.
 - - Programa: Ingenieria Industrial Virtual Medellin.
 - Habilidades: Entre mis habilidades se destacan el análisis y resolución de problemas.  Además, cuento con pensamiento lógico y capacidad de aprendizaje, lo que me permite adaptarme al uso de herramientas tecnológicas necesarias para el desarrollo del software.
-- Fortalezas: Me considero una persona proactiva, con iniciativa para asumir responsabilidades y aportar al desarrollo del proyecto. Además, me destaco por mi perseverancia para lograr los objetivos propuestos. 
+- Fortalezas: Me considero una persona proactiva, con iniciativa para asumir responsabilidades y aportar al desarrollo del proyecto. Además, me destaco por mi perseverancia para lograr los objetivos propuestos.
+
+  
 **- SEBASTIAN CORTES TOLOZA:** Tengo 25 años, estudio ingeniería industrial en la sede Medellín y estoy en el tercer semestre.
 - - Programa: Ingenieria Industrial Virtual Medellin.
 - Habilidades:
