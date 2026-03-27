@@ -20,85 +20,94 @@
 
 
 ## NOMBRE DEL PROYECTO
-  **### DATAFILE-SOLUTION**
+
+  **# DATAFILE-SOLUTION**
 El proyecto “Datafile solution” consiste en el desarrollo de un sistema en Python para la gestión de préstamos de objetos, diseñado para ayudar a Michael Jackson Gamboa a llevar un control organizado de los artículos que presta a sus amigos.
 
 ![LOGO](https://github.com/user-attachments/assets/cd61d640-4f4c-4cfe-a765-f5bbbffa2427)
 
 
-                                                                ## REPORTE DE VISION
+                                                                # REPORTE DE VISION
 ## DESCRIPCION GENERAL
+
 El software propuesto es un sistema de gestión de préstamos desarrollado en Python, diseñado para controlar de manera estructurada la información relacionada con usuarios, objetos y movimientos de préstamo y devolución. Su funcionamiento se realizará a través de una interfaz de consola amigable, que permita una interacción simple, ordenada y eficiente con el sistema.
 Esta solución está pensada para contextos en los que sea necesario administrar recursos prestables de forma organizada, sustituyendo registros manuales por un entorno digital con mayor claridad operativa. El programa integrará funciones de registro, consulta, actualización y control de la información, permitiendo centralizar los datos dentro de una misma herramienta.
 
 ## BENEFICIOS
-Trazabilidad de cada préstamo
+
+**Trazabilidad de cada préstamo**
 Entre los principales beneficios del software se encuentra una organización eficiente de la información, el sistema permitirá conocer con precisión quién solicitó un objeto, en qué fecha lo recibió.
 
-Reducción de pérdidas por olvido o mala gestión
+**Reducción de pérdidas por olvido o mala gestión**
 Al mantener actualizada la información de préstamos y devoluciones, el software disminuye el riesgo de extravío de objetos, permitiendo la minimización de errores al recordar préstamos.
 
-Identificación de usuarios con mayor nivel de cumplimiento
+**Identificación de usuarios con mayor nivel de cumplimiento**
 Esto aporta información útil para tomar decisiones sobre futuros préstamos.
 
-Detección de ítems con alta rotación
+**Detección de ítems con alta rotación**
 El software permitirá identificar cuáles objetos son prestados con mayor frecuencia para reconocer qué recursos son más demandados y cuáles requieren mayor disponibilidad, mantenimiento o reposición.
 
-Apoyo en la toma de decisiones administrativas
+**Apoyo en la toma de decisiones administrativas**
 La información almacenada puede servir para decidir si conviene adquirir más unidades de ciertos objetos, restringir algunos préstamos, el propósito principal es organizar y optimizar los objetos que se prestan.
 
-Disminución del tiempo de búsqueda de información
+**Disminución del tiempo de búsqueda de información**
 En lugar de revisar apuntes, archivos dispersos o registros manuales, el sistema permitirá consultar rápidamente el estado de un préstamo, esto mejora la eficiencia operativa y ahorra tiempo.
 
-Fortalecimiento de la cultura de responsabilidad
+**Fortalecimiento de la cultura de responsabilidad**
 El uso del sistema promueve en los usuarios una mayor conciencia sobre el cuidado de los objetos prestados y el cumplimiento de los tiempos de devolución, ya que cada operación queda registrada y asociada a un responsable.
 
-Base para futuras automatizaciones
+**Base para futuras automatizaciones**
 La creación de este software puede servir como punto de partida para en versiones futuras agregar alertas automáticas, reportes estadísticos, filtros, etc.
 
-                                                                Especificación de requisitos
+                                                               # Especificación de requisitos
 ## REQUISITOS FUNCIONALES
 
-Gestión de amigos
+**Gestión de amigos**
 •	El sistema debe permitir registrar amigos con información básica (nombre, teléfono, correo).
 •	El sistema debe permitir consultar la lista de amigos registrados.
 •	El sistema debe permitir actualizar y eliminar información de amigos.
 
-Gestión de inventario
+**Gestión de inventario**
 •	El sistema debe permitir registrar objetos con nombre y precio de adquisición.
 •	El sistema debe indicar si un objeto está disponible o prestado.
 •	El sistema debe permitir consultar el inventario de objetos.
 
-Gestión de préstamos
+**Gestión de préstamos**
 •	El sistema debe permitir registrar un préstamo asociando un amigo, un objeto y la fecha.
 •	El sistema debe impedir prestar objetos que no estén disponibles.
 •	El sistema debe almacenar el historial de préstamos.
 
-Gestión de devoluciones
+**Gestión de devoluciones**
 •	El sistema debe permitir registrar la devolución de un objeto.
 •	El sistema debe actualizar el estado del objeto a disponible.
 •	El sistema debe registrar la fecha de devolución.
 
-Notificaciones y alertas
+**Notificaciones y alertas**
 •	El sistema debe generar un recordatorio automático cuando un préstamo supere los 20 días.
 •	El sistema debe notificar al usuario sobre préstamos pendientes.
 
-Facturación
+**Facturación**
 •	El sistema debe generar una factura de venta cuando un préstamo supere los 30 días sin devolución.
 •	La factura debe incluir el nombre del amigo, el objeto y el precio.
 
-Certificados
+**Certificados**
 •	El sistema debe generar un certificado de devolución cuando un objeto sea retornado.
 •	El certificado debe incluir datos del amigo, objeto y fecha de devolución.
 
 ## REQUISITOS NO FUNCIONALES
-Usabilidad: El sistema debe contar con una interfaz sencilla e intuitiva basada en menú para que el usuario pueda interactuar sin conocimientos técnicos avanzados.
 
-Rendimiento: El sistema debe responder a las acciones del usuario de manera inmediata y el procesamiento de datos debe ser eficiente para listas pequeñas y medianas.
+**Usabilidad**
+El sistema debe contar con una interfaz sencilla e intuitiva basada en menú para que el usuario pueda interactuar sin conocimientos técnicos avanzados.
 
-Fiabilidad: El sistema debe garantizar la correcta gestión de la información sin pérdida de datos durante su ejecución.
+**Rendimiento**
+El sistema debe responder a las acciones del usuario de manera inmediata y el procesamiento de datos debe ser eficiente para listas pequeñas y medianas.
 
-Seguridad: El sistema debe validar los datos ingresados por el usuario y debe evitar registros incompletos o incorrectos.
+**Fiabilidad**
+El sistema debe garantizar la correcta gestión de la información sin pérdida de datos durante su ejecución.
 
-Mantenibilidad: El código debe estar organizado y documentado para facilitar futuras mejoras y permitir agregar nuevas funcionalidades sin afectar el funcionamiento actual.
+**Seguridad**
+El sistema debe validar los datos ingresados por el usuario y debe evitar registros incompletos o incorrectos.
+
+**Mantenibilidad**
+El código debe estar organizado y documentado para facilitar futuras mejoras y permitir agregar nuevas funcionalidades sin afectar el funcionamiento actual.
 
