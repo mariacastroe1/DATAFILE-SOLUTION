@@ -16,12 +16,13 @@
 - Programa: Ingenieria Industrial Virtual Medellin.
 - Habilidades: Considero que tengo habilidades para el trabajo en equipo y una buena organización para realizar las actividades propuestas.
 - Fortalezas: Se puede destacar mi compromiso cuando las cosas me gustan y la adaptabilidad para trabajar en cualquier entorno.
+  
 
-
+                                                                      # DISEÑO
 
 ## NOMBRE DEL PROYECTO
 
-  # DATAFILE-SOLUTION
+# DATAFILE-SOLUTION
 
 ![LOGO](https://github.com/user-attachments/assets/cd61d640-4f4c-4cfe-a765-f5bbbffa2427)
 
