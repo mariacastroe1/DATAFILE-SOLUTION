@@ -57,3 +57,49 @@ El uso del sistema promueve en los usuarios una mayor conciencia sobre el cuidad
 Base para futuras automatizaciones
 La creación de este software puede servir como punto de partida para en versiones futuras agregar alertas automáticas, reportes estadísticos, filtros, etc.
 
+                                                                Especificación de requisitos
+## REQUISITOS FUNCIONALES
+
+Gestión de amigos
+•	El sistema debe permitir registrar amigos con información básica (nombre, teléfono, correo).
+•	El sistema debe permitir consultar la lista de amigos registrados.
+•	El sistema debe permitir actualizar y eliminar información de amigos.
+
+Gestión de inventario
+•	El sistema debe permitir registrar objetos con nombre y precio de adquisición.
+•	El sistema debe indicar si un objeto está disponible o prestado.
+•	El sistema debe permitir consultar el inventario de objetos.
+
+Gestión de préstamos
+•	El sistema debe permitir registrar un préstamo asociando un amigo, un objeto y la fecha.
+•	El sistema debe impedir prestar objetos que no estén disponibles.
+•	El sistema debe almacenar el historial de préstamos.
+
+Gestión de devoluciones
+•	El sistema debe permitir registrar la devolución de un objeto.
+•	El sistema debe actualizar el estado del objeto a disponible.
+•	El sistema debe registrar la fecha de devolución.
+
+Notificaciones y alertas
+•	El sistema debe generar un recordatorio automático cuando un préstamo supere los 20 días.
+•	El sistema debe notificar al usuario sobre préstamos pendientes.
+
+Facturación
+•	El sistema debe generar una factura de venta cuando un préstamo supere los 30 días sin devolución.
+•	La factura debe incluir el nombre del amigo, el objeto y el precio.
+
+Certificados
+•	El sistema debe generar un certificado de devolución cuando un objeto sea retornado.
+•	El certificado debe incluir datos del amigo, objeto y fecha de devolución.
+
+## REQUISITOS NO FUNCIONALES
+Usabilidad: El sistema debe contar con una interfaz sencilla e intuitiva basada en menú para que el usuario pueda interactuar sin conocimientos técnicos avanzados.
+
+Rendimiento: El sistema debe responder a las acciones del usuario de manera inmediata y el procesamiento de datos debe ser eficiente para listas pequeñas y medianas.
+
+Fiabilidad: El sistema debe garantizar la correcta gestión de la información sin pérdida de datos durante su ejecución.
+
+Seguridad: El sistema debe validar los datos ingresados por el usuario y debe evitar registros incompletos o incorrectos.
+
+Mantenibilidad: El código debe estar organizado y documentado para facilitar futuras mejoras y permitir agregar nuevas funcionalidades sin afectar el funcionamiento actual.
+
