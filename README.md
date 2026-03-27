@@ -18,9 +18,7 @@
 - Habilidades: Considero que tengo habilidades para el trabajo en equipo y una buena organización para realizar las actividades propuestas.
 - Fortalezas: Se puede destacar mi compromiso cuando las cosas me gustan y la adaptabilidad para trabajar en cualquier entorno.
 
--
--
--
+---
 
                                                                       # DISEÑO
 
@@ -30,8 +28,7 @@
 
 ![LOGO](https://github.com/user-attachments/assets/cd61d640-4f4c-4cfe-a765-f5bbbffa2427)
 
-
--
+---
 
                                                                 # REPORTE DE VISION
                                                                 
@@ -68,9 +65,7 @@ El uso del sistema promueve en los usuarios una mayor conciencia sobre el cuidad
 **Base para futuras automatizaciones**
 La creación de este software puede servir como punto de partida para en versiones futuras agregar alertas automáticas, reportes estadísticos, filtros, etc.
 
--
--
--
+---
 
                                                                # ESPECIFICACION DE REQUISITOS
                                                                
