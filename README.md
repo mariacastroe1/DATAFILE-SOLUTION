@@ -2,7 +2,7 @@
                                                                 #INFORMACION
 
 ## INTEGRANTES
--
+--
 **- MARIA CAMILA CASTRO ESTRADA :** *"Hola, soy estudiante del programa Ingenieria Industrial virtual regiones de la sede Amalfi, trabajo como supernumeraria de la Registraduria Municipal de Amalfi, hago parte de una corporación sin animo de lucro llamada Mundo Al Revés, me gusta el arte y tengo 24 años."*
 - Programa: Ingenieria Industrial Virtual Regiones.
 - Habilidades: Entre mis habilidades destaco la recolección y organización de información, me interesa aprender métodos que ayuden a optimizar procesos y mejorar la manera en que se realizan las tareas.
