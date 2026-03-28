@@ -127,3 +127,8 @@ El sistema debe validar los datos ingresados por el usuario y debe evitar regist
 **Mantenibilidad**
 El código debe estar organizado y documentado para facilitar futuras mejoras y permitir agregar nuevas funcionalidades sin afectar el funcionamiento actual.
 
+---
+
+                                                                                         # DIAGRAMA DE GANTT Y PRESUPUESTO
+Nota aclaratoria: Los documentos sobre el diagrama y el presupuesto, están subidos al repositorio en version jpg, pdf y archivo excel, para una mejor visualizacion.                                                                                       
+
