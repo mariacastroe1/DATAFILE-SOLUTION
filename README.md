@@ -19,7 +19,7 @@
 **- SEBASTIAN CORTES TOLOZA:** *"Tengo 25 años, estudio ingeniería industrial en la sede Medellín y estoy en el tercer semestre."*
 - Programa: Ingenieria Industrial Virtual Medellin.
 - Habilidades: Considero que tengo habilidades para el trabajo en equipo y una buena organización para realizar las actividades propuestas.
-- Fortalezas: Se puede destacar mi compromiso cuando las cosas me gustan y la adaptabilidad para trabajar en cualquier entorno.
+- Fortalezas: Se puede destacar mi compromiso cuando las cosas me gustan y la adaptabilidad para trabajar en cualquier entorno que se me proponga.
 
 ---
 
