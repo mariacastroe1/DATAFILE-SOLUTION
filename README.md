@@ -31,7 +31,9 @@
 
 ![LOGO](https://github.com/user-attachments/assets/cd61d640-4f4c-4cfe-a765-f5bbbffa2427)
 ---
-DATAFILE-SOLUTION © 2026 por MARIA CAMILA CASTRO ESTRADA, LINA MARCELA DUQUE GIRALDO, SEBASTIAN CORTES TOLOZA está bajo licencia Creative Commons Attribution 4.0 International.
+DATAFILE-SOLUTION © 2026 por MARIA CAMILA CASTRO ESTRADA, LINA MARCELA DUQUE GIRALDO, SEBASTIAN CORTES TOLOZA está bajo licencia Creative Commons Attribution 4.0 International (CC-BY 4.0).
+Se permite el uso, distribución y modificación del contenido en cualquier medio o formato, siempre que se otorgue el debido crédito a los autores del proyecto.
+
 ---
 
                                                                 # REPORTE DE VISION
