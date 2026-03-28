@@ -129,6 +129,6 @@ El código debe estar organizado y documentado para facilitar futuras mejoras y 
 
 ---
 
-                                                                                         # DIAGRAMA DE GANTT Y PRESUPUESTO
+                                                              # DIAGRAMA DE GANTT Y PRESUPUESTO
 Nota aclaratoria: Los documentos sobre el diagrama y el presupuesto, están subidos al repositorio en version jpg, pdf y archivo excel, para una mejor visualizacion.                                                                                       
 
