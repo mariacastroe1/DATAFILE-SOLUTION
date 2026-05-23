@@ -132,3 +132,34 @@ El código debe estar organizado y documentado para facilitar futuras mejoras y 
                                                               # DIAGRAMA DE GANTT Y PRESUPUESTO
 Nota aclaratoria: Los documentos sobre el diagrama y el presupuesto, están subidos al repositorio en version jpg, pdf y archivo excel, para una mejor visualizacion.                                                                                       
 
+## Guia de instalación:
+
+Crear el entorno de desarrollo, IMPORTANTE DONDE ESTE EL ARCHIVO main.py ejecutar este comando:
+````
+cd src
+````
+
+````
+python3 -m venv venv 
+````
+
+Para poder activarlo 
+
+````
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+````
+
+````
+ .\venv\Scripts\Activate.ps1
+````
+
+Cuando esté activo verás: (venv)
+
+Ejecutar app
+
+````
+python main.py
+````
+
+
+
