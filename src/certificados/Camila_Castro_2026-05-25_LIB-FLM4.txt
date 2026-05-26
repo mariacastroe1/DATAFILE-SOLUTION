@@ -1,0 +1,13 @@
+==========================================
+       CERTIFICADO DE DEVOLUCION         
+==========================================
+Usuario      : Camila Castro
+Documento    : 1001477
+Item         : Game of trones
+ID del item  : LIB-FLM4
+Fecha inicio : 2026-05-25 21:42:52
+Fecha devol. : 2026-05-25 21:53:03
+Dias usados  : 0 dias
+==========================================
+Estado: Devolucion Exitosa
+==========================================

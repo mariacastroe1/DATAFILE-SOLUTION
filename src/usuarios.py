@@ -7,7 +7,7 @@ def validar_nombre_apellido(texto):
     Valida que el texto tenga al menos 3 caracteres y no contenga números.
     Retorna True si es válido, False si no.
     """
-    # Condición 1: longitud mínima de 3
+    # Condición 1: longitud mínima de 3 caracteres.
     if len(texto) < 3:
         return False
 

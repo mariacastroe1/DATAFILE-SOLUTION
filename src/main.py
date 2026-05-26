@@ -1,6 +1,8 @@
 import os
 import usuarios
 import items
+import prestamos
+import admin
 
 
 def asegurar_entorno():
@@ -31,6 +33,9 @@ def menu_principal():
     # 2. Cargar todos los datos en memoria al arrancar
     list_usuarios  = []
     list_items     = []
+    list_prestamos = []
+    list_ventas    = []
+
 
     # 4. Ciclo principal del menú
     while True:
@@ -60,19 +65,20 @@ def menu_principal():
 
         elif opcion == "3":
             limpiar_pantalla()
-            print("Registrar Prestamo(Pendiente)")
+            prestamos.registrar_prestamo(list_usuarios, list_items, list_prestamos)
 
         elif opcion == "4":
             limpiar_pantalla()
-            print("Registrar y Certificar Devolucion(Pendiente)")
+            prestamos.registrar_devolucion(list_prestamos, list_items)
 
         elif opcion == "5":
             limpiar_pantalla()
-            print("Consultar Estado General de Prestamos(Pendiente)")
+            prestamos.consultar_estado_general(list_prestamos)
 
         elif opcion == "6":
             limpiar_pantalla()
-            print("Panel de Administracion(Pendiente)")
+            if admin.login_admin():
+                admin.menu_admin(list_usuarios, list_items, list_prestamos, list_ventas)
 
         elif opcion == "0":
             print("\n  Hasta pronto!")
