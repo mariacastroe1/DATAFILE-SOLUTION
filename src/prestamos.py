@@ -1,99 +1,189 @@
+# prestamos.py
+# Manejo de prestamos, devoluciones, ventas por mora y consultas
+
 import os
+import csv
 from datetime import datetime
 
+# El impuesto que se cobra si alguien no devuelve el item a tiempo
 IMPUESTO_CONCHUDEZ = 0.23
 
 
 # ------------------------------------------------------------------
-# Función para calcular los días desde el prestamo hasta la actualidad.
+# Funcion auxiliar para calcular dias
 # ------------------------------------------------------------------
 
 def calcular_dias_transcurridos(fecha_inicio_str):
-    # Calcula cuántos días han pasado desde la fecha de inicio del préstamo.
+    # Recibe una fecha en texto y calcula cuantos dias han pasado hasta hoy
     fecha_inicio = datetime.strptime(fecha_inicio_str, "%Y-%m-%d %H:%M:%S")
-    diferencia = datetime.now() - fecha_inicio
-    return diferencia.days 
+    diferencia   = datetime.now() - fecha_inicio
+    return diferencia.days
 
 
 # ------------------------------------------------------------------
-# Registrar préstamo
+# Funciones para guardar en CSV
+# ------------------------------------------------------------------
+
+def guardar_prestamo_en_csv(prestamo):
+    # Guarda el prestamo en data/prestamos.csv
+    ruta           = os.path.join("data", "prestamos.csv")
+    archivo_existe = os.path.exists(ruta)
+
+    with open(ruta, "a", newline="", encoding="utf-8") as archivo:
+        escritor = csv.writer(archivo)
+
+        if not archivo_existe:
+            escritor.writerow(["fecha_registro", "usuario", "documento", "item_id", "item_nombre", "precio", "dias_pactados", "fecha_inicio"])
+
+        escritor.writerow([
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            prestamo["usuario_nombre"],
+            prestamo["usuario_doc"],
+            prestamo["item_id"],
+            prestamo["item_nombre"],
+            "{:.2f}".format(prestamo["item_precio"]),
+            str(prestamo["dias_pactados"]),
+            prestamo["fecha_inicio"]
+        ])
+
+    print("  Prestamo guardado en data/prestamos.csv")
+
+
+def guardar_devolucion_en_csv(prestamo, dias):
+    # Guarda la devolucion en data/devoluciones.csv
+    ruta           = os.path.join("data", "devoluciones.csv")
+    archivo_existe = os.path.exists(ruta)
+
+    with open(ruta, "a", newline="", encoding="utf-8") as archivo:
+        escritor = csv.writer(archivo)
+
+        if not archivo_existe:
+            escritor.writerow(["fecha_devolucion", "usuario", "documento", "item_id", "item_nombre", "dias_usados"])
+
+        escritor.writerow([
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            prestamo["usuario_nombre"],
+            prestamo["usuario_doc"],
+            prestamo["item_id"],
+            prestamo["item_nombre"],
+            str(dias)
+        ])
+
+    print("  Devolucion guardada en data/devoluciones.csv")
+
+
+def guardar_venta_en_csv(venta):
+    # Guarda la venta en data/ventas.csv
+    ruta           = os.path.join("data", "ventas.csv")
+    archivo_existe = os.path.exists(ruta)
+
+    with open(ruta, "a", newline="", encoding="utf-8") as archivo:
+        escritor = csv.writer(archivo)
+
+        if not archivo_existe:
+            escritor.writerow(["fecha", "usuario", "documento", "item_id", "item_nombre", "subtotal", "impuesto", "total"])
+
+        escritor.writerow([
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            venta["usuario"],
+            venta["doc"],
+            venta["item_id"],
+            venta["item_nombre"],
+            "{:.2f}".format(venta["subtotal"]),
+            "{:.2f}".format(venta["impuesto"]),
+            "{:.2f}".format(venta["total"])
+        ])
+
+    print("  Venta guardada en data/ventas.csv")
+
+# ------------------------------------------------------------------
+# Opcion 2: Registrar prestamo
 # ------------------------------------------------------------------
 
 def registrar_prestamo(usuarios, items, prestamos):
-    """
-    -Estas listas me permiten registrar un prestamo, revisar que el usuario esté creado previamente.
-    -Permite revisar el inventario y elegir los items.
-    -Guarda lo registrado de inmediato al finalizar.
-    """
     print("\n--- Registrar Nuevo Prestamo ---")
 
-    # --- Buscar usuario por documento ---
-    doc = ""
+    # Buscar al usuario por documento
     usuario = None
     while True:
-        #El strip me permite eliminar espacios en la redaccion de documentos para hacer el entorno más accesible.
-        doc = input("Documento del usuario: ").strip() 
+        doc = input("Documento del usuario: ").strip()
 
-        # Buscar en la lista de usuarios
-        for usr in usuarios: # usr hace refeerencia a cada usuario de la lista usuarios
-            if usr["doc"] == doc: # Busca entre cada uno de los usuarios el documento que ingresamos.
-                usuario = usr # asignamos el usuario encontrado.
-                break # si se encontró el usuario, detenemos el for para que no siga recorriendo la lista.
+        for u in usuarios:
+            if u["doc"] == doc:
+                usuario = u
+                break
 
-        # Ahora vamos a cerrar el ciclo de while, con un break.
-
-        if usuario is not None: # Si el usuario existe, me lo muestra en la consola y se detiene el "while"
+        if usuario is not None:
             print("  Usuario encontrado: " + usuario["nombre"] + " " + usuario["apellido"])
-            break # Detiene el while.
-
-        else: #Si no existe el usuario muestra error y que no existe el usuario.
+            break
+        else:
             print("  ERROR: No existe un usuario con ese documento.")
-            print("  MJ debe registrar al usuario antes de hacer un prestamo.")
-            # Le permitimos al usuario verificar y repetir el documento, para realizar la busqueda nuevamente.
-            respuesta = input("  Desea intentar con otro documento? (s/n): ").strip().lower() 
-            # Con strip eliminamos espacios y con Lower lo pasamos minúsculas.
+            print("  Debe registrar al usuario antes de hacer un prestamo.")
+            respuesta = input("  Desea intentar con otro documento? (s/n): ").strip().lower()
             if respuesta != "s":
-                return # Si el usuario responde "si" el return me permite volver a solicitar el documento y el while no termina hasta que cumpla con la condición.
+                return
 
-    # --- Mostrar inventario disponible ---
+    # Mostrar solo los items que estan disponibles
     disponibles = []
     for item in items:
         if item["disponible"] == True:
             disponibles.append(item)
 
     if len(disponibles) == 0:
-        print("\n  No hay items disponibles en el inventario en este momento.")
-        return # Aquí termina la funcion si no hay items disponibles y se vuelve al menú principal.
+        print("\n  No hay items disponibles en este momento.")
+        return
 
     print("\n  Inventario disponible:")
-    print("  " + "-" * 45)
-    print("  {:<12} {:<20} {:<12}".format("ID", "Nombre", "Categoria", "precio"))
-    print("  " + "-" * 45)
+    print("  " + "-" * 50)
+    print("  {:<12} {:<22} {:<14}".format("ID", "Nombre", "Categoria"))
+    print("  " + "-" * 50)
     for item in disponibles:
-        print("  {:<12} {:<20} {:<12}".format(item["id"], item["nombre"][:20], item["categoria"]))
-    print("  " + "-" * 45)
+        print("  {:<12} {:<22} {:<14}".format(item["id"], item["nombre"][:20], item["categoria"]))
+    print("  " + "-" * 50)
 
-    # --- Seleccionar ítem por ID ---
+    # El usuario elige el item por ID
     item_seleccionado = None
     while True:
         item_id = input("\n  Ingrese el ID del item a prestar: ").strip().upper()
 
-        for item in disponibles: #Item disponible.
+        for item in disponibles:
             if item["id"] == item_id:
                 item_seleccionado = item
                 break
 
-        if item_seleccionado is not None: 
+        if item_seleccionado is not None:
             print("  Item seleccionado: " + item_seleccionado["nombre"])
             break
         else:
             print("  ERROR: ID no valido o no disponible. Intente de nuevo.")
 
-    # --- Registrar el préstamo ---
-    fecha_ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # Preguntar si quiere usar la fecha de hoy o ingresar una manualmente
+    # Util para simular prestamos con mas de 30 dias sin esperar
+    print("\n  Fecha de inicio del prestamo:")
+    print("  1. Usar la fecha de hoy")
+    print("  2. Ingresar una fecha manualmente")
+    opcion_fecha = input("  Seleccione una opcion: ").strip()
+
+    if opcion_fecha == "2":
+        fecha_ahora = ""
+        while True:
+            entrada = input("  Ingrese la fecha (formato: YYYY-MM-DD, ej: 2026-01-15): ").strip()
+
+            # Verificar que tenga el formato correcto intentando convertirla
+            try:
+                datetime.strptime(entrada, "%Y-%m-%d")
+                # Si llega aqui es porque la fecha es valida
+                fecha_ahora = entrada + " 00:00:00"
+                break
+            except ValueError:
+                print("  ERROR: Fecha invalida. Use el formato YYYY-MM-DD (ej: 2026-01-15).")
+    else:
+        fecha_ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Crear el registro del prestamo
 
     nuevo_prestamo = {
-        "usuario_doc":    doc,
+        "usuario_doc":    usuario["doc"],
         "usuario_nombre": usuario["nombre"] + " " + usuario["apellido"],
         "item_id":        item_seleccionado["id"],
         "item_nombre":    item_seleccionado["nombre"],
@@ -104,48 +194,47 @@ def registrar_prestamo(usuarios, items, prestamos):
     }
 
     prestamos.append(nuevo_prestamo)
-    item_seleccionado["disponible"] = False # Para que no siga apareciendo disponible después de haberlo prestado.
+    item_seleccionado["disponible"] = False
     usuario["prestamos_realizados"] = usuario["prestamos_realizados"] + 1
 
-    print("\n  Prestamo registrado con exito para " + usuario["nombre"] + "!")
-    print("  Item       : " + item_seleccionado["nombre"])
+    # Guardar en CSV
+    guardar_prestamo_en_csv(nuevo_prestamo)
+
+    print("\n  Prestamo registrado con exito!")
+    print("  Item         : " + item_seleccionado["nombre"])
     print("  Dias pactados: " + str(usuario["tiempo"]) + " dias")
     print("  Fecha inicio : " + fecha_ahora)
 
 
 # ------------------------------------------------------------------
-# Registrar devolución
+# Opcion 3: Registrar devolucion
 # ------------------------------------------------------------------
 
 def registrar_devolucion(prestamos, items):
-    """
-    Registra la devolución de un préstamo activo.
-    - Verifica que el usuario tenga préstamos activos.
-    - Si se devuelve antes de los 30 días, genera certificado TXT.
-    - Guarda de inmediato al finalizar.
-    """
     print("\n--- Registrar Devolucion ---")
 
     doc = input("Documento del usuario: ").strip()
 
-    # Buscar préstamos activos del usuario
+    # Buscar prestamos activos del usuario
     prestamos_activos = []
     for p in prestamos:
         if p["usuario_doc"] == doc and p["activo"] == True:
             prestamos_activos.append(p)
 
     if len(prestamos_activos) == 0:
-        print("  El usuario no tiene prestamos activos. No se puede registrar devolucion.")
+        print("  El usuario no tiene prestamos activos.")
+        print("  No se puede registrar la devolucion.")
         return
 
-    # Mostrar sus préstamos activos
+    # Mostrar los prestamos activos del usuario
     print("\n  Prestamos activos del usuario:")
     for i in range(len(prestamos_activos)):
-        p = prestamos_activos[i]
-        dias_transcurridos = calcular_dias_transcurridos(p["fecha_inicio"])
-        print("  " + str(i + 1) + ". " + p["item_nombre"] + " (ID: " + p["item_id"] + ") - " + str(dias_transcurridos) + " dias transcurridos")
+        p    = prestamos_activos[i]
+        dias = calcular_dias_transcurridos(p["fecha_inicio"])
+        print("  " + str(i + 1) + ". " + p["item_nombre"] +
+              " (ID: " + p["item_id"] + ") - " + str(dias) + " dias transcurridos")
 
-    # Seleccionar cuál devolver
+    # El usuario elige cual devolver
     prestamo_elegido = None
     while True:
         entrada = input("\n  Seleccione el numero del prestamo a devolver: ").strip()
@@ -162,33 +251,32 @@ def registrar_devolucion(prestamos, items):
         else:
             print("  ERROR: Numero fuera de rango. Intente de nuevo.")
 
-    # Verificar si superó los 30 días
     dias = calcular_dias_transcurridos(prestamo_elegido["fecha_inicio"])
 
+    # Si supero 30 dias no se puede devolver, debe procesarse como venta
     if dias > 30:
-        print("\n  AVISO: Este prestamo supero los 30 dias.")
-        print("  Debe procesarse como VENTA en el panel de administracion.")
+        print("\n  AVISO: Este prestamo supero los 30 dias permitidos.")
+        print("  Use la opcion 4 del menu para procesar la venta automatica.")
         return
 
-    # Procesar devolución
+    # Marcar el prestamo como cerrado
     prestamo_elegido["activo"] = False
 
-    # Devolver el ítem al inventario
+    # Devolver el item al inventario
     for item in items:
         if item["id"] == prestamo_elegido["item_id"]:
             item["disponible"] = True
             break
 
+    # Nombre base para los archivos que se van a generar
+    fecha_dev   = datetime.now().strftime("%Y-%m-%d")
+    nombre_base = prestamo_elegido["usuario_nombre"].replace(" ", "_")
+    nombre_base = nombre_base + "_" + fecha_dev + "_" + prestamo_elegido["item_id"]
+
     # Generar certificado TXT
-    fecha_dev = datetime.now().strftime("%Y-%m-%d")
-    fecha_dev_completa = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    ruta_txt = os.path.join("certificados", nombre_base + ".txt")
 
-    # Nombre del archivo: NombreUsuario_FechaDevolucion_IDItem.txt
-    nombre_archivo = prestamo_elegido["usuario_nombre"].replace(" ", "_")
-    nombre_archivo = nombre_archivo + "_" + fecha_dev + "_" + prestamo_elegido["item_id"] + ".txt"
-    ruta_certificado = os.path.join("certificados", nombre_archivo)
-
-    with open(ruta_certificado, "w", encoding="utf-8") as f:
+    with open(ruta_txt, "w", encoding="utf-8") as f:
         f.write("==========================================\n")
         f.write("       CERTIFICADO DE DEVOLUCION         \n")
         f.write("==========================================\n")
@@ -197,149 +285,166 @@ def registrar_devolucion(prestamos, items):
         f.write("Item         : " + prestamo_elegido["item_nombre"] + "\n")
         f.write("ID del item  : " + prestamo_elegido["item_id"] + "\n")
         f.write("Fecha inicio : " + prestamo_elegido["fecha_inicio"] + "\n")
-        f.write("Fecha devol. : " + fecha_dev_completa + "\n")
+        f.write("Fecha devol. : " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
         f.write("Dias usados  : " + str(dias) + " dias\n")
         f.write("==========================================\n")
         f.write("Estado: Devolucion Exitosa\n")
         f.write("==========================================\n")
 
     print("\n  Devolucion registrada con exito!")
-    print("  Certificado generado: " + ruta_certificado)
+    print("  Certificado TXT generado: " + ruta_txt)
+
+
+
+    # Guardar en CSV
+    guardar_devolucion_en_csv(prestamo_elegido, dias)
 
 
 # ------------------------------------------------------------------
-# Procesar ventas automáticas (préstamos > 30 días)
+# Opcion 4: Items con mas de 30 dias (ventas automaticas)
 # ------------------------------------------------------------------
 
-def procesar_ventas_automaticas(prestamos, items, ventas):
-    """
-    Revisa todos los préstamos activos.
-    Si alguno supera los 30 días, lo convierte en venta automáticamente
-    y genera la factura en un archivo TXT.
-    """
-    contador = 0
+def consultar_y_procesar_morosos(prestamos, items, ventas):
+    print("\n--- Items con mas de 30 dias de prestamo ---")
 
+    # Buscar todos los prestamos activos que ya superaron los 30 dias
+    morosos = []
     for p in prestamos:
         if p["activo"] == True:
             dias = calcular_dias_transcurridos(p["fecha_inicio"])
-
             if dias > 30:
-                # Calcular valores de la venta
-                subtotal = p["item_precio"]
-                impuesto = subtotal * IMPUESTO_CONCHUDEZ
-                total    = subtotal + impuesto
+                morosos.append(p)
 
-                # Registrar la venta
-                nueva_venta = {
-                    "usuario":    p["usuario_nombre"],
-                    "doc":        p["usuario_doc"],
-                    "item_id":    p["item_id"],
-                    "item_nombre": p["item_nombre"],
-                    "subtotal":   subtotal,
-                    "impuesto":   impuesto,
-                    "total":      total,
-                    "motivo":     "Excedio el tiempo maximo de prestamo (30 dias)"
-                }
-                ventas.append(nueva_venta)
+    if len(morosos) == 0:
+        print("  No hay prestamos que superen los 30 dias. Todo esta al dia.")
+        return
 
-                # Cerrar el préstamo
-                p["activo"] = False
+    print("  Se encontraron " + str(len(morosos)) + " prestamo(s) con mora:\n")
 
-                # El ítem queda marcado como no disponible (fue vendido)
-                for item in items:
-                    if item["id"] == p["item_id"]:
-                        item["disponible"] = False
-                        break
+    for p in morosos:
+        dias     = calcular_dias_transcurridos(p["fecha_inicio"])
+        subtotal = p["item_precio"]
+        impuesto = subtotal * IMPUESTO_CONCHUDEZ
+        total    = subtotal + impuesto
 
-                # Generar factura TXT
-                nombre_factura = p["usuario_nombre"].replace(" ", "_") + "_" + p["item_id"] + "_FACTURA.txt"
-                ruta_factura = os.path.join("facturas", nombre_factura)
+        print("  Usuario : " + p["usuario_nombre"])
+        print("  Item    : " + p["item_nombre"] + " (ID: " + p["item_id"] + ")")
+        print("  Dias    : " + str(dias) + " dias")
+        print("  Subtotal: $" + "{:,.2f}".format(subtotal))
+        print("  Impuesto conchudez 23%: $" + "{:,.2f}".format(impuesto))
+        print("  TOTAL   : $" + "{:,.2f}".format(total))
+        print("  " + "-" * 40)
 
-                with open(ruta_factura, "w", encoding="utf-8") as f:
-                    f.write("==========================================\n")
-                    f.write("           FACTURA DE VENTA              \n")
-                    f.write("==========================================\n")
-                    f.write("Cliente  : " + nueva_venta["usuario"] + "\n")
-                    f.write("Producto : " + nueva_venta["item_nombre"] + " (ID: " + nueva_venta["item_id"] + ")\n")
-                    f.write("Motivo   : " + nueva_venta["motivo"] + "\n")
-                    f.write("------------------------------------------\n")
-                    f.write("Subtotal              : $" + "{:,.2f}".format(subtotal) + "\n")
-                    f.write("Impuesto Conchudez 23%: $" + "{:,.2f}".format(impuesto) + "\n")
-                    f.write("TOTAL A PAGAR         : $" + "{:,.2f}".format(total) + "\n")
-                    f.write("==========================================\n")
+        # Crear el registro de la venta
+        nueva_venta = {
+            "usuario":    p["usuario_nombre"],
+            "doc":        p["usuario_doc"],
+            "item_id":    p["item_id"],
+            "item_nombre": p["item_nombre"],
+            "subtotal":   subtotal,
+            "impuesto":   impuesto,
+            "total":      total,
+            "motivo":     "Excedio el tiempo maximo de prestamo (30 dias)"
+        }
+        ventas.append(nueva_venta)
 
-                contador = contador + 1
+        # Cerrar el prestamo
+        p["activo"] = False
 
-    if contador > 0:
-        print("  Se procesaron " + str(contador) + " ventas automaticas por mora.")
+        # El item queda como vendido (no vuelve al inventario)
+        for item in items:
+            if item["id"] == p["item_id"]:
+                item["disponible"] = False
+                break
+
+        nombre_base = p["usuario_nombre"].replace(" ", "_") + "_" + p["item_id"]
+
+        # Generar factura TXT
+        ruta_txt = os.path.join("facturas", nombre_base + "_FACTURA.txt")
+
+        with open(ruta_txt, "w", encoding="utf-8") as f:
+            f.write("==========================================\n")
+            f.write("           FACTURA DE VENTA              \n")
+            f.write("==========================================\n")
+            f.write("Cliente  : " + nueva_venta["usuario"] + "\n")
+            f.write("Producto : " + nueva_venta["item_nombre"] + " (ID: " + nueva_venta["item_id"] + ")\n")
+            f.write("Motivo   : " + nueva_venta["motivo"] + "\n")
+            f.write("------------------------------------------\n")
+            f.write("Subtotal              : $" + "{:,.2f}".format(subtotal) + "\n")
+            f.write("Impuesto Conchudez 23%: $" + "{:,.2f}".format(impuesto) + "\n")
+            f.write("TOTAL A PAGAR         : $" + "{:,.2f}".format(total) + "\n")
+            f.write("==========================================\n")
+
+        print("  Factura TXT generada: " + ruta_txt)
+
+    
+       
+
+        # Guardar en CSV
+        guardar_venta_en_csv(nueva_venta)
+
+    print("\n  Se procesaron " + str(len(morosos)) + " venta(s) por mora.")
 
 
 # ------------------------------------------------------------------
-# Consultar estado general de préstamos
+# Opcion 5: Consultar articulos prestados
 # ------------------------------------------------------------------
 
 def consultar_estado_general(prestamos):
-    """
-    Muestra todos los préstamos activos ordenados por cantidad de días
-    (de mayor a menor) y guarda el reporte en un archivo plano.
-    """
-    print("\n--- Estado General de Prestamos ---")
+    print("\n--- Consultar Articulos Prestados ---")
 
-    # Filtrar solo los activos
+    # Filtrar solo los prestamos que estan activos
     activos = []
     for p in prestamos:
         if p["activo"] == True:
             activos.append(p)
 
     if len(activos) == 0:
-        print("  No hay prestamos activos para reportar.")
+        print("  No hay prestamos activos para mostrar.")
         return
 
-    # Calcular días de cada préstamo y armar lista de reporte
+    # Calcular los dias de cada prestamo activo
     reporte = []
     for p in activos:
         dias = calcular_dias_transcurridos(p["fecha_inicio"])
         reporte.append({
+            "id":      p["item_id"],
             "item":    p["item_nombre"],
             "usuario": p["usuario_nombre"],
-            "dias":    dias,
-            "id":      p["item_id"]
+            "dias":    dias
         })
 
-    # Ordenar de mayor a menor días (ordenamiento burbuja básico)
+    # Ordenar de mayor a menor por dias (algoritmo burbuja)
     for i in range(len(reporte)):
         for j in range(i + 1, len(reporte)):
             if reporte[j]["dias"] > reporte[i]["dias"]:
-                temp      = reporte[i]
+                temp       = reporte[i]
                 reporte[i] = reporte[j]
                 reporte[j] = temp
 
-    # Mostrar en pantalla y guardar en archivo
-    os.makedirs("reportes", exist_ok=True)
-    ruta_reporte = os.path.join("reportes", "estado_prestamos.txt")
+    # Mostrar en pantalla
+    print("\n  {:<12} {:<22} {:<6} {}".format("ID", "Item", "Dias", "Usuario"))
+    print("  " + "-" * 60)
+
+    for r in reporte:
+        print("  {:<12} {:<22} {:<6} {}".format(
+            r["id"], r["item"][:20], str(r["dias"]), r["usuario"][:20]
+        ))
+
+    print("  " + "-" * 60)
+
+    # Guardar el reporte en un archivo de texto
+    ruta_reporte  = os.path.join("reportes", "estado_prestamos.txt")
     fecha_reporte = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    encabezado = "\n  {:<12} {:<22} {:<6} {}".format("ID", "Item", "Dias", "Usuario")
-    separador  = "  " + "-" * 60
-
-    print(encabezado)
-    print(separador)
 
     with open(ruta_reporte, "w", encoding="utf-8") as f:
         f.write("REPORTE DE ESTADO GENERAL - " + fecha_reporte + "\n")
         f.write("-" * 60 + "\n")
         f.write("{:<12} {:<22} {:<6} {}\n".format("ID", "Item", "Dias", "Usuario"))
         f.write("-" * 60 + "\n")
-
         for r in reporte:
-            linea = "  {:<12} {:<22} {:<6} {}".format(
+            f.write("{:<12} {:<22} {:<6} {}\n".format(
                 r["id"], r["item"][:20], str(r["dias"]), r["usuario"][:20]
-            )
-            linea_archivo = "{:<12} {:<22} {:<6} {}\n".format(
-                r["id"], r["item"][:20], str(r["dias"]), r["usuario"][:20]
-            )
-            print(linea)
-            f.write(linea_archivo)
+            ))
 
-    print(separador)
     print("\n  Reporte guardado en: " + ruta_reporte)

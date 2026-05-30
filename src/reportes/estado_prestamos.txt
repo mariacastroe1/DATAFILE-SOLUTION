@@ -1,5 +1,0 @@
-REPORTE DE ESTADO GENERAL - 2026-05-25 21:43:31
-------------------------------------------------------------
-ID           Item                   Dias   Usuario
-------------------------------------------------------------
-LIB-FLM4     Game of trones         0      Camila Castro

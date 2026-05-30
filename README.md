@@ -148,6 +148,11 @@ Para poder activarlo
 ````
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ````
+
+
+
+
+
 A partir de aqui ejecutamos desde que tengamos la carpeta venv, DEBE ESTAR SIEMPRE EN SRC.
 ````
  .\venv\Scripts\Activate.ps1
