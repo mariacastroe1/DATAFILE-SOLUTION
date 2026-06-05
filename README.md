@@ -131,41 +131,89 @@ El código debe estar organizado y documentado para facilitar futuras mejoras y 
 
                                                               # DIAGRAMA DE GANTT Y PRESUPUESTO
 Nota aclaratoria: Los documentos sobre el diagrama y el presupuesto, están subidos al repositorio en version jpg, pdf y archivo excel, para una mejor visualizacion.                                                                                       
+---
 
-## Guia de instalación:
+## 7. Plan de Versionado
 
-Crear el entorno de desarrollo, IMPORTANTE DONDE ESTE EL ARCHIVO main.py ejecutar este comando:
-````
+| Versión | Fecha | Autor | Descripción |
+|---------|-------|-------|-------------|
+| v0.0.1 | Semana 1 | linaduque1 | Estructura base y menú principal. Se desarrolló la estructura de archivos requeridos para el proyecto y se implementó el menú principal. |
+| v0.0.2 | Semana 2 | linaduque1 | Registro de usuarios e ítems. Se crean las funciones y validaciones para registrar usuarios e ítems. |
+| v0.0.3 | Semana 2 | mariacastroe1 | Préstamos y admin creados. Se crean y validan las funciones para registrar préstamos y se crean los usuarios administradores. |
+| v0.0.4 | Semana 3 | mariacastroe1 | Aplicación funcional sin reportes PDF. La aplicación guarda usuarios, ítems y préstamos en CSV y genera ventas automáticas para los préstamos de más de 30 días. |
+| v0.0.5 | Semana 4 | linaduque1 | Versión final completa. Se agregan reportes PDF para facturas y certificados, persistencia completa con carga de CSV al inicio, fecha manual en préstamos y manual de usuario. |
+
+### Historial de releases
+
+- **[v0.0.5 — Versión final](https://github.com/mariacastroe1/DATAFILE-SOLUTION/releases/latest)** *(Latest)*
+  Versión completa con PDF, persistencia de datos y manual de usuario.
+
+- **[v0.0.4 — Aplicación funcional sin reportes PDF](https://github.com/mariacastroe1/DATAFILE-SOLUTION/releases/tag/v0.0.4)**
+  La aplicación guarda usuarios, ítems y préstamos en CSV y genera ventas automáticas para préstamos de más de 30 días.
+
+- **[v0.0.3 — Préstamos y admin creados](https://github.com/mariacastroe1/DATAFILE-SOLUTION/releases/tag/v0.0.3)**
+  Se crean y validan las funciones para registrar préstamos y se crean los usuarios administradores.
+
+- **[v0.0.2 — Registro de usuarios e ítems](https://github.com/mariacastroe1/DATAFILE-SOLUTION/releases/tag/v0.0.2)**
+  Se crean las funciones y validaciones para registrar usuarios e ítems.
+
+- **[v0.0.1 — Estructura base y menú principal](https://github.com/mariacastroe1/DATAFILE-SOLUTION/releases/tag/v0.0.1)**
+  Se desarrolló la estructura de archivos requeridos para el proyecto y se implementó el menú principal.
+
+---
+
+Guía de Instalación
+
+### Requisitos
+
+- Python 3.10 o superior
+- Librería `reportlab` para generación de PDF
+
+### Instalación en Windows
+
+Abrir una terminal (cmd o PowerShell) en la carpeta del proyecto y ejecutar:
+
+```
+pip install reportlab
+```
+
+Si no funciona, probar con:
+
+```
+python -m pip install reportlab
+```
+
+### Instalación en Mac o Linux
+
+```
+pip3 install reportlab
+```
+
+### Ejecución
+
+Ubicarse dentro de la carpeta `src/` y ejecutar:
+
+```
 cd src
-````
 
-````
-python3 -m venv venv 
-````
+.\venv\Scripts\Activate.ps1
 
-Para poder activarlo 
-
-````
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-````
-
-
-
-
-
-A partir de aqui ejecutamos desde que tengamos la carpeta venv, DEBE ESTAR SIEMPRE EN SRC.
-````
- .\venv\Scripts\Activate.ps1
-````
-
-Cuando esté activo verás: (venv)
-
-Ejecutar app
-
-````
 python main.py
-````
+```
+
+Al iniciar, el programa cargará automáticamente los datos guardados en los archivos CSV. Si es la primera vez que se ejecuta, las listas estarán vacías y se puede empezar a registrar desde cero.
+
+---
 
 
+## Manual de Usuario
 
+El manual de usuario completo está disponible en la carpeta `doc/` del repositorio:
 
+- [`doc/manual_data_file_solution.md`](doc/manual_data_file_solution.md)
+- [`doc/manual_data_file_solution.docx`](doc/manual_data_file_solution.docx)
+
+---
+
+*Proyecto académico — Algoritmia y Programación — Universidad de Antioquia — 2026*
+*Docente: John Heider Dávila*

@@ -2,10 +2,10 @@
 # Archivo principal del sistema Data File Solution
 # Desde aqui se inicia todo el programa
 
+# El programa se organiza en modulos gracias a la función import y se comunica con los demas archivos
 import os
 import csv
 import usuarios
-import items
 import prestamos
 import admin
 
@@ -29,7 +29,7 @@ def crear_carpetas():
 
 
 def cargar_usuarios():
-    # Lee data/usuarios.csv y devuelve la lista de usuarios
+    # Lee el archivodata/usuarios.csv y devuelve la lista de usuarios
     # Si el archivo no existe devuelve una lista vacia
     lista = []
     ruta  = os.path.join("data", "usuarios.csv")
@@ -37,28 +37,30 @@ def cargar_usuarios():
     if not os.path.exists(ruta):
         return lista
 
-    with open(ruta, "r", encoding="utf-8") as archivo:
+    #Encoding utf-8(universal)nos sirve para que el programa pueda leer caracteres especiales como tildes y ñ sin problemas
+    with open(ruta, "r", encoding="utf-8") as archivo:  #r significa que se abre el archivo en modo lectura.
         lector = csv.reader(archivo)
-        next(lector)  # Saltar la fila de encabezados
+        next(lector)  # Saltar encabezados(titulos), para que no se conviertan en un usuario mas de la lista
 
-        for fila in lector:
-            # Columnas: fecha_registro, documento, nombre, apellido, correo, dias_prestamo
+        for columna in lector: #recorre todos los usuarios guardados en el CSV 
+    
+           # Se crea una lista nueva con campos entendibles Como nombre, apellido... para poder analizar y leer mejor los datos, es decir se le da nombre a las columnas.
             usuario = {
-                "doc":                  fila[1],
-                "nombre":               fila[2],
-                "apellido":             fila[3],
-                "correo":               fila[4],
-                "tiempo":               int(fila[5]),
+                "doc":                  columna[1],
+                "nombre":               columna[2],
+                "apellido":             columna[3],
+                "correo":               columna[4],
+                "tiempo":               int(columna[5]),
                 "prestamos_realizados": 0
             }
-            lista.append(usuario)
+            lista.append(usuario) # agrega cada registro a la lista de usuarios del programa para que puedan ser usados
 
-    print("  Usuarios cargados: " + str(len(lista)))
-    return lista
+    print("  Usuarios cargados: " + str(len(lista))) # Str convierte el numero a texto para poder imprimirlo junto con el mensaje y len cuenta cuantos usuarios se cargaron en el for. ejemplo: usuarios cargados: 20.
+    return lista # devuelve la lista de usuarios para que el programa pueda usarla en otras partes.
 
 
 def cargar_items():
-    # Lee data/items.csv y devuelve la lista de items
+    # Lee el archivo data/items.csv y devuelve la lista de items
     # Si el archivo no existe devuelve una lista vacia
     lista = []
     ruta  = os.path.join("data", "items.csv")
@@ -70,14 +72,14 @@ def cargar_items():
         lector = csv.reader(archivo)
         next(lector)  # Saltar encabezados
 
-        for fila in lector:
+        for columna in lector:
             # Columnas: fecha_registro, id, nombre, categoria, precio, estado
             item = {
-                "id":         fila[1],
-                "nombre":     fila[2],
-                "categoria":  fila[3],
-                "precio":     float(fila[4]),
-                "estado":     fila[5],
+                "id":         columna[1],
+                "nombre":     columna[2],
+                "categoria":  columna[3],
+                "precio":     float(columna[4]),
+                "estado":     columna[5],
                 "disponible": True  # Se corrige abajo al revisar prestamos activos
             }
             lista.append(item)
@@ -87,7 +89,7 @@ def cargar_items():
 
 
 def cargar_prestamos():
-    # Lee data/prestamos.csv y devuelve la lista de prestamos
+    # Lee archivo data/prestamos.csv y devuelve la lista de prestamos
     # Todos se cargan como activos al principio, luego se corrigen
     # Si el archivo no existe devuelve una lista vacia
     lista = []
@@ -100,16 +102,16 @@ def cargar_prestamos():
         lector = csv.reader(archivo)
         next(lector)  # Saltar encabezados
 
-        for fila in lector:
+        for columna in lector:
             # Columnas: fecha_registro, usuario, documento, item_id, item_nombre, precio, dias_pactados, fecha_inicio
             prestamo = {
-                "usuario_doc":    fila[2],
-                "usuario_nombre": fila[1],
-                "item_id":        fila[3],
-                "item_nombre":    fila[4],
-                "item_precio":    float(fila[5]),
-                "dias_pactados":  int(fila[6]),
-                "fecha_inicio":   fila[7],
+                "usuario_doc":    columna[2],
+                "usuario_nombre": columna[1],
+                "item_id":        columna[3],
+                "item_nombre":    columna[4],
+                "item_precio":    float(columna[5]),
+                "dias_pactados":  int(columna[6]),
+                "fecha_inicio":   columna[7],
                 "activo":         True  # Se corrige abajo al revisar devoluciones y ventas
             }
             lista.append(prestamo)
@@ -129,10 +131,10 @@ def cargar_ventas(list_prestamos, list_usuarios, list_items):
         with open(ruta_dev, "r", encoding="utf-8") as archivo:
             lector = csv.reader(archivo)
             next(lector)
-            for fila in lector:
+            for columna in lector:
                 # Columnas: fecha_devolucion, usuario, documento, item_id, item_nombre, dias_usados
-                doc_buscado  = fila[2]
-                item_buscado = fila[3]
+                doc_buscado  = columna[2]
+                item_buscado = columna[3]
                 for p in list_prestamos:
                     if p["usuario_doc"] == doc_buscado and p["item_id"] == item_buscado and p["activo"] == True:
                         p["activo"] = False
@@ -145,23 +147,23 @@ def cargar_ventas(list_prestamos, list_usuarios, list_items):
         with open(ruta_ventas, "r", encoding="utf-8") as archivo:
             lector = csv.reader(archivo)
             next(lector)
-            for fila in lector:
+            for columna in lector:
                 # Columnas: fecha, usuario, documento, item_id, item_nombre, subtotal, impuesto, total
-                doc_buscado  = fila[2]
-                item_buscado = fila[3]
+                doc_buscado  = columna[2]
+                item_buscado = columna[3]
                 for p in list_prestamos:
                     if p["usuario_doc"] == doc_buscado and p["item_id"] == item_buscado and p["activo"] == True:
                         p["activo"] = False
                         break
 
                 venta = {
-                    "usuario":    fila[1],
-                    "doc":        fila[2],
-                    "item_id":    fila[3],
-                    "item_nombre": fila[4],
-                    "subtotal":   float(fila[5]),
-                    "impuesto":   float(fila[6]),
-                    "total":      float(fila[7]),
+                    "usuario":    columna[1],
+                    "doc":        columna[2],
+                    "item_id":    columna[3],
+                    "item_nombre": columna[4],
+                    "subtotal":   float(columna[5]),
+                    "impuesto":   float(columna[6]),
+                    "total":      float(columna[7]),
                     "motivo":     "Excedio el tiempo maximo de prestamo (30 dias)"
                 }
                 list_ventas.append(venta)
@@ -191,7 +193,7 @@ def menu_principal():
 
     # Cargar todos los datos guardados en los CSV al arrancar
     print("\n  Cargando datos guardados...")
-    list_usuarios  = cargar_usuarios()
+    list_usuarios  = cargar_usuarios() #recibe la lista nombrada de forma entendible de los usuario guardados en el csv.
     list_items     = cargar_items()
     list_prestamos = cargar_prestamos()
     list_ventas    = cargar_ventas(list_prestamos, list_usuarios, list_items)

@@ -1,0 +1,11 @@
+==========================================
+           FACTURA DE VENTA              
+==========================================
+Cliente  : Sofia Giraldo
+Producto : Harry Potter (ID: LIB-UA0S)
+Motivo   : Excedio el tiempo maximo de prestamo (30 dias)
+------------------------------------------
+Subtotal              : $1,500,000.00
+Impuesto Conchudez 23%: $345,000.00
+TOTAL A PAGAR         : $1,845,000.00
+==========================================

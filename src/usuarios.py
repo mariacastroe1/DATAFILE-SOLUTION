@@ -12,10 +12,10 @@ from datetime import datetime
 
 def validar_nombre_apellido(texto):
     # Verifica que el texto tenga al menos 3 letras y no tenga numeros
-    if len(texto) < 3:
+    if len(texto) < 3: 
         return False
     for caracter in texto:
-        if caracter.isdigit():
+        if caracter.isdigit(): # si el caracter es un numero, no es valido
             return False
     return True
 
@@ -24,25 +24,25 @@ def validar_documento(doc):
     # Verifica que el documento sea solo numeros y tenga entre 3 y 15 digitos
     if not doc.isdigit():
         return False
-    if len(doc) < 3 or len(doc) > 15:
+    if len(doc) < 3 or len(doc) > 15: # si el documento tiene menos de 3 o mas de 15 digitos, no es valido
         return False
-    return True
+    return True # El documento es valido si pasa las dos condiciones anteriores
 
 
 def validar_correo(correo):
     # Verifica que el correo tenga una @ y termine en .com
-    # NO SE ADMINTES CORROES QUE NO TERMINEN EN .COM POR EJEMPLO: @udea.edu.co
+    # NO SE ADMINTEN CORREOS QUE NO TERMINEN EN .COM POR EJEMPLO: @udea.edu.co
     # Ejemplos validos: juan@gmail.com, maria@hotmail.com
-    if correo.count("@") != 1:
+    if correo.count("@") != 1: # si el correo no tiene exactamente una @, no es valido
         return False
     
-    partes        = correo.split("@")
-    parte_antes   = partes[0]
-    parte_despues = partes[1]
-    if len(parte_antes) == 0:
+    partes        = correo.split("@") # separamos el correo en dos partes usando la @ como separador
+    parte_antes   = partes[0] # la parte antes de la @
+    parte_despues = partes[1] # la parte despues de la @
+    if len(parte_antes) == 0: # si la parte antes de la @ esta vacia, no es valido
         return False
     # if not parte_despues.endswith("udea.edu.co"): # En caso de necesitar una dereccion udea.edu.co se descomentarea
-    if not parte_despues.endswith(".com"): # Para que termine en .com
+    if not parte_despues.endswith(".com"): # si la parte despues de la @ no termina en .com, no es valido
         return False
     
     return True
@@ -56,17 +56,17 @@ def guardar_usuario_en_csv(usuario):
     # Guarda los datos del usuario en data/usuarios.csv
     # Si el archivo no existe lo crea con encabezados
     # Si ya existe agrega una fila al final sin borrar lo anterior
-    ruta           = os.path.join("data", "usuarios.csv")
-    archivo_existe = os.path.exists(ruta)
+    ruta           = os.path.join("data", "usuarios.csv")  # os.path es una forma de construir rutas de archivos que funciona en cualquier sistema
+    archivo_existe = os.path.exists(ruta) # Verificar si el archivo ya existe para saber si se deben escribir los encabezados o no
 
-    with open(ruta, "a", newline="", encoding="utf-8") as archivo:
+    with open(ruta, "a", newline="", encoding="utf-8") as archivo: 
         escritor = csv.writer(archivo)
 
         if not archivo_existe:
-            escritor.writerow(["fecha", "documento", "nombre", "apellido", "correo", "dias_prestamo"])
+            escritor.writerow(["fecha", "documento", "nombre", "apellido", "correo", "dias_prestamo"]) 
 
-        escritor.writerow([
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        escritor.writerow([ # Escribe una fila con los datos del usuario
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"), # Fecha y hora actual en formato legible
             usuario["doc"],
             usuario["nombre"],
             usuario["apellido"],
@@ -82,7 +82,7 @@ def guardar_usuario_en_csv(usuario):
 # ------------------------------------------------------------------
 
 def registrar_usuario(usuarios):
-    print("\n--- Registro de Nuevo Usuario ---")
+    print("\n--- Registro de Nuevo Usuario ---") 
 
     # Campo: Documento
     doc = ""
