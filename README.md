@@ -15,11 +15,6 @@
 - Fortalezas: Me considero una persona proactiva, con iniciativa para asumir responsabilidades y aportar al desarrollo del proyecto. Además, me destaco por mi perseverancia para lograr los objetivos propuestos.
   
 
-  
-**- SEBASTIAN CORTES TOLOZA:** *"Tengo 25 años, estudio ingeniería industrial en la sede Medellín y estoy en el tercer semestre."*
-- Programa: Ingenieria Industrial Virtual Medellin.
-- Habilidades: Considero que tengo habilidades para el trabajo en equipo y una buena organización para realizar las actividades propuestas.
-- Fortalezas: Se puede destacar mi compromiso cuando las cosas me gustan y la adaptabilidad para trabajar en cualquier entorno que se me proponga.
 
 ---
 
@@ -31,7 +26,7 @@
 
 ![LOGO](https://github.com/user-attachments/assets/cd61d640-4f4c-4cfe-a765-f5bbbffa2427)
 ---
-DATAFILE-SOLUTION © 2026 por MARIA CAMILA CASTRO ESTRADA, LINA MARCELA DUQUE GIRALDO, SEBASTIAN CORTES TOLOZA está bajo licencia Creative Commons Attribution 4.0 International (CC-BY 4.0).
+DATAFILE-SOLUTION © 2026 por MARIA CAMILA CASTRO ESTRADA, LINA MARCELA DUQUE GIRALDO está bajo licencia Creative Commons Attribution 4.0 International (CC-BY 4.0).
 Se permite el uso, distribución y modificación del contenido en cualquier medio o formato, siempre que se otorgue el debido crédito a los autores del proyecto.
 
 ---
@@ -137,11 +132,11 @@ Nota aclaratoria: Los documentos sobre el diagrama y el presupuesto, están subi
 
 | Versión | Fecha | Autor | Descripción |
 |---------|-------|-------|-------------|
-| v0.0.1 | Semana 1 | linaduque1 | Estructura base y menú principal. Se desarrolló la estructura de archivos requeridos para el proyecto y se implementó el menú principal. |
-| v0.0.2 | Semana 2 | linaduque1 | Registro de usuarios e ítems. Se crean las funciones y validaciones para registrar usuarios e ítems. |
-| v0.0.3 | Semana 2 | mariacastroe1 | Préstamos y admin creados. Se crean y validan las funciones para registrar préstamos y se crean los usuarios administradores. |
-| v0.0.4 | Semana 3 | mariacastroe1 | Aplicación funcional sin reportes PDF. La aplicación guarda usuarios, ítems y préstamos en CSV y genera ventas automáticas para los préstamos de más de 30 días. |
-| v0.0.5 | Semana 4 | linaduque1 | Versión final completa. Se agregan reportes PDF para facturas y certificados, persistencia completa con carga de CSV al inicio, fecha manual en préstamos y manual de usuario. |
+| v0.0.1 | Semana 14 | linaduque1 | Estructura base y menú principal. Se desarrolló la estructura de archivos requeridos para el proyecto y se implementó el menú principal. |
+| v0.0.2 | Semana 15 | linaduque1 | Registro de usuarios e ítems. Se crean las funciones y validaciones para registrar usuarios e ítems. |
+| v0.0.3 | Semana 15 | mariacastroe1 | Préstamos y admin creados. Se crean y validan las funciones para registrar préstamos y se crean los usuarios administradores. |
+| v0.0.4 | Semana 16 | mariacastroe1 | Aplicación funcional sin reportes PDF. La aplicación guarda usuarios, ítems y préstamos en CSV y genera ventas automáticas para los préstamos de más de 30 días. |
+| v0.0.5 | Semana 16 | linaduque1 | Versión final completa. Se agregan reportes PDF para facturas y certificados, persistencia completa con carga de CSV al inicio, fecha manual en préstamos y manual de usuario. |
 
 ### Historial de releases
 
@@ -160,9 +155,16 @@ Nota aclaratoria: Los documentos sobre el diagrama y el presupuesto, están subi
 - **[v0.0.1 — Estructura base y menú principal](https://github.com/mariacastroe1/DATAFILE-SOLUTION/releases/tag/v0.0.1)**
   Se desarrolló la estructura de archivos requeridos para el proyecto y se implementó el menú principal.
 
+
+### Observaciones 
+
+Se colocó el plan versionado desde la semana 14 debido a que este se genera a partir del versionamiento, no se coloca desde el inicio debido al desconocimiento previo para guardar el versionamiento en Github, sin embargo se guarda registro previo en las actas de reunión.
+
 ---
 
-Guía de Instalación
+
+### Guía de Instalación
+
 
 ### Requisitos
 
